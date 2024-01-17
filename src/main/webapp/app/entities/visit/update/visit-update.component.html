@@ -1,0 +1,177 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-visit-heading" data-cy="VisitCreateUpdateHeading" jhiTranslate="arlaVisitTest1App.visit.home.createOrEditLabel">
+        Create or edit a Visit
+      </h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        @if (editForm.controls.id.value !== null) {
+          <div class="mb-3">
+            <label class="form-label" jhiTranslate="global.field.id" for="field_id">ID</label>
+            <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+          </div>
+        }
+
+        <div class="mb-3">
+          <label class="form-label" jhiTranslate="arlaVisitTest1App.visit.inTime" for="field_inTime">In Time</label>
+          <div class="d-flex">
+            <input
+              id="field_inTime"
+              data-cy="inTime"
+              type="datetime-local"
+              class="form-control"
+              name="inTime"
+              formControlName="inTime"
+              placeholder="YYYY-MM-DD HH:mm"
+            />
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" jhiTranslate="arlaVisitTest1App.visit.outTime" for="field_outTime">Out Time</label>
+          <div class="d-flex">
+            <input
+              id="field_outTime"
+              data-cy="outTime"
+              type="datetime-local"
+              class="form-control"
+              name="outTime"
+              formControlName="outTime"
+              placeholder="YYYY-MM-DD HH:mm"
+            />
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" jhiTranslate="arlaVisitTest1App.visit.carRegistrationNumber" for="field_carRegistrationNumber"
+            >Car Registration Number</label
+          >
+          <input
+            type="text"
+            class="form-control"
+            name="carRegistrationNumber"
+            id="field_carRegistrationNumber"
+            data-cy="carRegistrationNumber"
+            formControlName="carRegistrationNumber"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" jhiTranslate="arlaVisitTest1App.visit.carParkingNumber" for="field_carParkingNumber"
+            >Car Parking Number</label
+          >
+          <input
+            type="text"
+            class="form-control"
+            name="carParkingNumber"
+            id="field_carParkingNumber"
+            data-cy="carParkingNumber"
+            formControlName="carParkingNumber"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" jhiTranslate="arlaVisitTest1App.visit.messageToHost" for="field_messageToHost">Message To Host</label>
+          <input
+            type="text"
+            class="form-control"
+            name="messageToHost"
+            id="field_messageToHost"
+            data-cy="messageToHost"
+            formControlName="messageToHost"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" jhiTranslate="arlaVisitTest1App.visit.visitor" for="field_visitor">Visitor</label>
+          <select
+            class="form-control"
+            id="field_visitor"
+            data-cy="visitor"
+            name="visitor"
+            formControlName="visitor"
+            [compareWith]="compareVisitor"
+          >
+            @if (!editForm.get('visitor')!.value) {
+              <option [ngValue]="null" selected></option>
+            }
+            @for (visitorOption of visitorsSharedCollection; track $index) {
+              <option [ngValue]="visitorOption">{{ visitorOption.id }}</option>
+            }
+          </select>
+        </div>
+        @if (editForm.get(['visitor'])!.invalid && (editForm.get(['visitor'])!.dirty || editForm.get(['visitor'])!.touched)) {
+          <div>
+            @if (editForm.get(['visitor'])?.errors?.required) {
+              <small class="form-text text-danger" jhiTranslate="entity.validation.required">This field is required.</small>
+            }
+          </div>
+        }
+
+        <div class="mb-3">
+          <label class="form-label" jhiTranslate="arlaVisitTest1App.visit.office" for="field_office">Office</label>
+          <select
+            class="form-control"
+            id="field_office"
+            data-cy="office"
+            name="office"
+            formControlName="office"
+            [compareWith]="compareOffice"
+          >
+            @if (!editForm.get('office')!.value) {
+              <option [ngValue]="null" selected></option>
+            }
+            @for (officeOption of officesSharedCollection; track $index) {
+              <option [ngValue]="officeOption">{{ officeOption.id }}</option>
+            }
+          </select>
+        </div>
+        @if (editForm.get(['office'])!.invalid && (editForm.get(['office'])!.dirty || editForm.get(['office'])!.touched)) {
+          <div>
+            @if (editForm.get(['office'])?.errors?.required) {
+              <small class="form-text text-danger" jhiTranslate="entity.validation.required">This field is required.</small>
+            }
+          </div>
+        }
+
+        <div class="mb-3">
+          <label class="form-label" jhiTranslate="arlaVisitTest1App.visit.host" for="field_host">Host</label>
+          <select class="form-control" id="field_host" data-cy="host" name="host" formControlName="host" [compareWith]="compareEmployee">
+            @if (!editForm.get('host')!.value) {
+              <option [ngValue]="null" selected></option>
+            }
+            @for (employeeOption of employeesSharedCollection; track $index) {
+              <option [ngValue]="employeeOption">{{ employeeOption.id }}</option>
+            }
+          </select>
+        </div>
+        @if (editForm.get(['host'])!.invalid && (editForm.get(['host'])!.dirty || editForm.get(['host'])!.touched)) {
+          <div>
+            @if (editForm.get(['host'])?.errors?.required) {
+              <small class="form-text text-danger" jhiTranslate="entity.validation.required">This field is required.</small>
+            }
+          </div>
+        }
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
