@@ -1,0 +1,56 @@
+{
+  "annotations": {
+    "changelogDate": "20240117180405"
+  },
+  "applications": "*",
+  "entityTableName": "visit",
+  "fields": [
+    {
+      "fieldName": "inTime",
+      "fieldType": "Instant"
+    },
+    {
+      "fieldName": "outTime",
+      "fieldType": "Instant"
+    },
+    {
+      "fieldName": "carRegistrationNumber",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "carParkingNumber",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "messageToHost",
+      "fieldType": "String"
+    }
+  ],
+  "name": "Visit",
+  "pagination": "pagination",
+  "relationships": [
+    {
+      "otherEntityName": "visitor",
+      "relationshipName": "visitor",
+      "relationshipSide": "left",
+      "relationshipType": "many-to-one",
+      "relationshipValidateRules": "required"
+    },
+    {
+      "otherEntityName": "office",
+      "relationshipName": "office",
+      "relationshipSide": "left",
+      "relationshipType": "many-to-one",
+      "relationshipValidateRules": "required"
+    },
+    {
+      "otherEntityName": "employee",
+      "relationshipName": "host",
+      "relationshipSide": "left",
+      "relationshipType": "many-to-one",
+      "relationshipValidateRules": "required"
+    }
+  ],
+  "searchEngine": "no",
+  "service": "serviceClass"
+}

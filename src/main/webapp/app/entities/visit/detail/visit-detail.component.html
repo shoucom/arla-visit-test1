@@ -1,0 +1,74 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    @if (visit) {
+      <div>
+        <h2 data-cy="visitDetailsHeading"><span jhiTranslate="arlaVisitTest1App.visit.detail.title">Visit</span></h2>
+
+        <hr />
+
+        <jhi-alert-error></jhi-alert-error>
+
+        <jhi-alert></jhi-alert>
+
+        <dl class="row-md jh-entity-details">
+          <dt><span jhiTranslate="global.field.id">ID</span></dt>
+          <dd>
+            <span>{{ visit.id }}</span>
+          </dd>
+          <dt><span jhiTranslate="arlaVisitTest1App.visit.inTime">In Time</span></dt>
+          <dd>
+            <span>{{ visit.inTime | formatMediumDatetime }}</span>
+          </dd>
+          <dt><span jhiTranslate="arlaVisitTest1App.visit.outTime">Out Time</span></dt>
+          <dd>
+            <span>{{ visit.outTime | formatMediumDatetime }}</span>
+          </dd>
+          <dt><span jhiTranslate="arlaVisitTest1App.visit.carRegistrationNumber">Car Registration Number</span></dt>
+          <dd>
+            <span>{{ visit.carRegistrationNumber }}</span>
+          </dd>
+          <dt><span jhiTranslate="arlaVisitTest1App.visit.carParkingNumber">Car Parking Number</span></dt>
+          <dd>
+            <span>{{ visit.carParkingNumber }}</span>
+          </dd>
+          <dt><span jhiTranslate="arlaVisitTest1App.visit.messageToHost">Message To Host</span></dt>
+          <dd>
+            <span>{{ visit.messageToHost }}</span>
+          </dd>
+          <dt><span jhiTranslate="arlaVisitTest1App.visit.visitor">Visitor</span></dt>
+          <dd>
+            @if (visit.visitor) {
+              <div>
+                <a [routerLink]="['/visitor', visit.visitor.id, 'view']">{{ visit.visitor.id }}</a>
+              </div>
+            }
+          </dd>
+          <dt><span jhiTranslate="arlaVisitTest1App.visit.office">Office</span></dt>
+          <dd>
+            @if (visit.office) {
+              <div>
+                <a [routerLink]="['/office', visit.office.id, 'view']">{{ visit.office.id }}</a>
+              </div>
+            }
+          </dd>
+          <dt><span jhiTranslate="arlaVisitTest1App.visit.host">Host</span></dt>
+          <dd>
+            @if (visit.host) {
+              <div>
+                <a [routerLink]="['/employee', visit.host.id, 'view']">{{ visit.host.id }}</a>
+              </div>
+            }
+          </dd>
+        </dl>
+
+        <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+          <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+        </button>
+
+        <button type="button" [routerLink]="['/visit', visit.id, 'edit']" class="btn btn-primary">
+          <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+        </button>
+      </div>
+    }
+  </div>
+</div>

@@ -1,0 +1,47 @@
+{
+  "annotations": {
+    "changelogDate": "20240117180105"
+  },
+  "applications": "*",
+  "entityTableName": "office",
+  "fields": [
+    {
+      "fieldName": "name",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "address",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "phone",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "timeZone",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "wifiPassword",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "language",
+      "fieldType": "Language",
+      "fieldValues": "ENGLISH"
+    }
+  ],
+  "name": "Office",
+  "relationships": [
+    {
+      "otherEntityName": "employee",
+      "otherEntityRelationshipName": "office",
+      "relationshipName": "employee",
+      "relationshipSide": "right",
+      "relationshipType": "many-to-many"
+    }
+  ],
+  "searchEngine": "no",
+  "service": "serviceClass"
+}
