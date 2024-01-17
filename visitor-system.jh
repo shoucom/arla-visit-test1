@@ -1,0 +1,51 @@
+
+entity Office {
+	name String required
+    address String
+    phone Long
+    timeZone String
+    wifiPassword String
+    language Language
+}
+
+enum Language {ENGLISH}
+
+entity Employee {
+    firstName String required
+    lastName String required
+    pin Long
+    email String
+    mobileNumber Long
+    jobTitle String
+}
+
+entity Visitor {
+	firstName String required
+    lastName String required
+    email String
+    mobileNumber Long required
+    company String
+}
+
+entity Visit {
+    inTime Instant
+    outTime Instant
+    carRegistrationNumber String
+    carParkingNumber String
+    messageToHost String
+}
+
+relationship ManyToOne {
+    Visit{visitor required} to Visitor
+    Visit{office required} to Office
+    Visit{host required} to Employee
+}
+
+relationship ManyToMany {
+	Employee to Office
+}
+
+paginate all with pagination except Office
+
+service all with serviceClass
+
